@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Processing.js Boilerplate - From Processing to HTML</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+    <script src="js/lib/processing-1.4.1.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        // convenience function to get the id attribute of generated sketch html element
+        function getProcessingSketchId () { return 'procapp'; }
+
+        function showXYCoordinates(x, y) {
+            document.getElementById('xcoord').value = x;
+            document.getElementById('ycoord').value = y;
+            document.getElementById('content').style.backgroundColor = "rgb("+(x/2)+","+(y/2)+",128)";
+        }
+        var bound = false;
+        function bindJavascript() {
+            var pjs = Processing.getInstanceById('procapp');
+            if(pjs!=null) {
+                pjs.bindJavascript(this);
+                 bound = true;
+            }
+            if(!bound) setTimeout(bindJavascript, 250);
+        }
+        bindJavascript();
+    </script>
+</head>
+<body>
+<div id="content">
+    <div>
+        <canvas id="procapp" data-processing-sources="pjs/from-pjs.pde"
+                width="640" height="480">
+            <p>Your browser does not support the canvas tag.</p>
+            <!-- Note: you can put any alternative content here. -->
+        </canvas>
+        <noscript>
+            <p>JavaScript is required to view the contents of this page.</p>
+        </noscript>
+    </div>
+    <div id="coordinates">
+        x/y: <input type="textfield" id="xcoord">/<input type="textfield" id="ycoord">
+    </div>
+</div>
+</body>
+</html>
